@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 from random import randint
 
 
-def ml_models_wrapper(feature_values_PD, feature_values_KT, feature_set, list_of_classifiers):
+def ml_models_wrapper(feature_values_PD, feature_values_KT, feature_set, list_of_classifiers, goodness_measures_list):
     columns = feature_values_PD[4].columns.values
     motion_mass_notations = ['$L_M$', '$V_M$', '$A_M$', '$J_M$', '$P_M$', '$D_M$', 'mean V', 'mean A', 'mean J',
                              'mean P',
@@ -65,27 +65,27 @@ def ml_models_wrapper(feature_values_PD, feature_values_KT, feature_set, list_of
             print(list_of_classifiers[0])
 
             goodness_measures[list_of_classifiers[0]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
-                                                                                  clf)[:, 0]
+                                                                                  clf, goodness_measures_list)[:, 0]
 
             clf = tree.DecisionTreeClassifier()
             print(list_of_classifiers[1])
             goodness_measures[list_of_classifiers[1]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
-                                                                                  clf)[:, 0]
+                                                                                  clf, goodness_measures_list)[:, 0]
 
             clf = LogisticRegression(random_state=0)
             print(list_of_classifiers[2])
             goodness_measures[list_of_classifiers[2]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
-                                                                                  clf)[:, 0]
+                                                                                  clf, goodness_measures_list)[:, 0]
 
             clf = svm.SVC()
             print(list_of_classifiers[3])
             goodness_measures[list_of_classifiers[3]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
-                                                                                  clf)[:, 0]
+                                                                                  clf, goodness_measures_list)[:, 0]
 
             clf = RandomForestClassifier(max_depth=2, random_state=0)
             print(list_of_classifiers[4])
             goodness_measures[list_of_classifiers[4]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
-                                                                                  clf)[:, 0]
+                                                                                  clf, goodness_measures_list)[:, 0]
 
             # fig = plt.figure()
             # ax = fig.add_subplot(111, projection='3d')
@@ -134,7 +134,7 @@ def ml_models_wrapper_balanced(feature_values_PD, feature_values_KT, feature_set
 
             if df_length_KT > df_length_PD:
                 prop = df_length_PD / df_length_KT
-                print(prop)
+                print("proportion: ", prop)
                 feature_values_KT_balanced, left_over = train_test_split(feature_values_KT[i], train_size=prop)
                 feature_values_PD_balanced = feature_values_PD[i]
             else:
