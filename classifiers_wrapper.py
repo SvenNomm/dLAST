@@ -28,7 +28,7 @@ def classifiers_wrapper(data, labels, clf, goodness_measures_list):
             scorer = make_scorer(gm)
 
 
-        cvs = cross_val_score(clf, data, labels, cv=5, scoring=scorer)
+        cvs = cross_val_score(clf, data, labels, cv=3, scoring=scorer)
         print(cvs)
         scores[idx, 0] = np.average(cvs)
         idx = idx + 1

@@ -73,7 +73,7 @@ def goodness_plot(goodness_measures, goodness_measures_list, test_names, test_nr
 
     #ax2.yaxis.tick_right()
     #ax2.set_yticks(ticks_y_r_positions, ticks_y_r)
-    figure_name = PATH + 'goodness_of_the_models_' + test_names[test_nr] + '_' + interval_types[
+    figure_name = PATH + 'fixed_goodness_of_the_models_' + test_names[test_nr] + '_' + interval_types[
         interval_type] + '_interval_analysis.pdf'
     fig.savefig(figure_name)
 

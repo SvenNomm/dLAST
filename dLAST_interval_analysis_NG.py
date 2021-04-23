@@ -44,9 +44,11 @@ with open(fname, 'rb') as f:
 print('All the necessary files have been loaded.')
 
 #fishers_scores = filter_models_wrapper.filter_models_wrapper(single_feature_values_PD, single_feature_values_KT)
-goodness_measures = ml_modeling_wrapper.ml_models_wrapper(single_feature_values_PD, single_feature_values_KT,
+goodness_measures = ml_modeling_wrapper.ml_models_wrapper_balanced(single_feature_values_PD, single_feature_values_KT,
                                                           feature_set, list_of_classifiers, goodness_measures_list)
 PATH = PATH + 'NG_results/'
 goodness_plot(goodness_measures, goodness_measures_list, test_names, test_nr, interval_types,interval_type, list_of_classifiers, PATH)
 
 print('Thants all folks!')
+
+
