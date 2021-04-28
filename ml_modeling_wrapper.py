@@ -165,7 +165,8 @@ def ml_models_wrapper_balanced(feature_values_PD, feature_values_KT, feature_set
             cols = one_row.shape[1]
             new_columns = columns[one_row.argsort()[0, cols - 3:cols]]
             new_columns = list(new_columns)
-            new_columns = feature_set
+            print("Interval: ", i, " Using features:", new_columns)
+            #new_columns = feature_set
             # evaluating differnt classifiers in a little bit dumb manner
 
             clf = knn(n_neighbors=5)
