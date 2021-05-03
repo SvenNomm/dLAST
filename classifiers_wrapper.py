@@ -18,7 +18,7 @@ def classifiers_wrapper(data, labels, clf, goodness_measures_list):
     scores = np.zeros((4, 1))
     idx = 0
     for goodness_measure in goodness_measures_list:
-        print('Computing ', goodness_measure)
+        #print('Computing ', goodness_measure)
         if goodness_measure == 'sensitivity':
             scorer = make_scorer(recall_score, pos_label=1)
         elif goodness_measure == 'specificity':
@@ -29,7 +29,7 @@ def classifiers_wrapper(data, labels, clf, goodness_measures_list):
 
 
         cvs = cross_val_score(clf, data, labels, cv=5, scoring=scorer)
-        print(cvs)
+        #print(cvs)
         scores[idx, 0] = np.average(cvs)
         idx = idx + 1
 

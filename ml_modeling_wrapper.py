@@ -124,7 +124,7 @@ def ml_models_wrapper_balanced(feature_values_PD, feature_values_KT, feature_set
         goodness_measures[k] = np.zeros((4, number_of_intervals))
 
     for i in range(0, number_of_intervals):
-        print('interval:', i)
+        #print('interval:', i)
         df_length_PD = feature_values_PD[i].shape[0]
         df_length_KT = feature_values_KT[i].shape[0]
 
@@ -134,7 +134,7 @@ def ml_models_wrapper_balanced(feature_values_PD, feature_values_KT, feature_set
 
             if df_length_KT > df_length_PD:
                 prop = df_length_PD / df_length_KT
-                print("proportion: ", prop)
+                #print("proportion: ", prop)
                 feature_values_KT_balanced, left_over = train_test_split(feature_values_KT[i], train_size=prop)
                 feature_values_PD_balanced = feature_values_PD[i]
             else:
@@ -155,7 +155,7 @@ def ml_models_wrapper_balanced(feature_values_PD, feature_values_KT, feature_set
 
             # merge dataframes and lables
             feature_values = pd.concat([feature_values_PD_balanced, feature_values_KT_balanced])
-            print('sample size:', feature_values.shape[0])
+            #print('sample size:', feature_values.shape[0])
             labels = np.array(labels_PD + labels_KT)
             f_s = fishers_score(feature_values, labels)
 
@@ -165,33 +165,33 @@ def ml_models_wrapper_balanced(feature_values_PD, feature_values_KT, feature_set
             cols = one_row.shape[1]
             new_columns = columns[one_row.argsort()[0, cols - 3:cols]]
             new_columns = list(new_columns)
-            print("Interval: ", i, " Using features:", new_columns)
-            #new_columns = feature_set
+            #print("Interval: ", i, " Using features:", new_columns)
+            new_columns = feature_set
             # evaluating differnt classifiers in a little bit dumb manner
 
             clf = knn(n_neighbors=5)
-            print(list_of_classifiers[0])
+            #print(list_of_classifiers[0])
 
             goodness_measures[list_of_classifiers[0]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
                                                                                   clf, goodness_measures_list)[:, 0]
 
             clf = tree.DecisionTreeClassifier()
-            print(list_of_classifiers[1])
+            #print(list_of_classifiers[1])
             goodness_measures[list_of_classifiers[1]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
                                                                                   clf, goodness_measures_list)[:, 0]
 
             clf = LogisticRegression(random_state=0)
-            print(list_of_classifiers[2])
+            #print(list_of_classifiers[2])
             goodness_measures[list_of_classifiers[2]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
                                                                                   clf, goodness_measures_list)[:, 0]
 
             clf = svm.SVC()
-            print(list_of_classifiers[3])
+            #print(list_of_classifiers[3])
             goodness_measures[list_of_classifiers[3]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
                                                                                   clf, goodness_measures_list)[:, 0]
 
             clf = RandomForestClassifier(max_depth=2, random_state=0)
-            print(list_of_classifiers[4])
+            #print(list_of_classifiers[4])
             goodness_measures[list_of_classifiers[4]][:, i] = classifiers_wrapper(feature_values[new_columns], labels,
                                                                                   clf, goodness_measures_list)[:, 0]
 
@@ -212,7 +212,7 @@ def ml_models_wrapper_balanced(feature_values_PD, feature_values_KT, feature_set
             # ax.set_zlabel(motion_mass_notations[new_columns[2]][0])
             # plt.show()
             # fishers_scores = fishers_scores.append(f_s)
-            print('Hello!')
+            #print('Hello!')
     return goodness_measures
 
 
